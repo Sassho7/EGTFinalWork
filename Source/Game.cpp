@@ -89,8 +89,36 @@ void Game::Update()
 
 void Game::Render()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); //e tuka trqbwa da vkaram fona
-	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
+	SDL_RenderClear(renderer); //chisti ekrana
+
+	SDL_Texture* backgroundTexture = nullptr;
+	SDL_Surface* backgroundSurface = IMG_Load("C:/Users/Michaela/Desktop/4.png"); // zarejda kartinkata
+
+	if (backgroundSurface)
+	{
+		backgroundTexture = SDL_CreateTextureFromSurface(renderer, backgroundSurface);
+		SDL_FreeSurface(backgroundSurface);
+		if (backgroundTexture)
+		{
+			int WindowWidth, WindowHeight;
+			SDL_GetWindowSize(window, &WindowWidth, &WindowHeight); // vzima razmerite na prozoreca
+
+			SDL_Rect backgroundRect = { 0, 0, WindowWidth, WindowHeight };
+			SDL_RenderCopy(renderer, backgroundTexture, nullptr, &backgroundRect); //rendva da moje da pokrie celiq prozorec
+
+			SDL_DestroyTexture(backgroundTexture);
+		}
+		else
+		{
+			cerr << "Ne moja da syzdade texture" << SDL_GetError() << endl;
+		}
+	}
+	else
+	{
+		cerr << "Ne moja da zaredi kartinkata" << SDL_GetError() << endl;
+	}
 
 	for (int i = 0; i < NumberOfBirds; i++)
 	{
