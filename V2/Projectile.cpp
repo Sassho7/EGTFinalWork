@@ -13,7 +13,7 @@ Projectile::Projectile(SDL_Texture* texture, int x, int y, int w, int h, int dx,
 
 Projectile::~Projectile()
 {
-	delete rect;
+	//delete rect; blagodarenie na nego
 }
 
 void Projectile::SetRect(int x, int y, int w, int h)
